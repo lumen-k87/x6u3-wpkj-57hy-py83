@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <title>공해인의 휴대폰</title>
 <meta name="description" content="드라마 《몸으로 갚아요, 선생님》의 내용을 바탕으로 재창작한 가상의 휴대폰">
@@ -34,6 +34,9 @@ body{background:var(--street);color:#e9ebf0;font-family:var(--f-ui);overflow:hid
 @keyframes rain{to{background-position:-120px 400px}}
 .stage{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px);display:flex;align-items:center;justify-content:center;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));box-sizing:border-box;overscroll-behavior:none}
 html,body{overscroll-behavior:none;overflow:hidden}
+html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.screen{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.screen input{-webkit-user-select:text;user-select:text}
 
 /* phone */
 .phone{position:relative;width:min(372px,100%);height:min(806px,100%);border-radius:58px;background:#050505;
@@ -1161,6 +1164,7 @@ $('#again').onclick=()=>location.reload();
 $('#stClose').onclick=()=>$('#stapp').classList.remove('show');
 document.addEventListener('pointerdown',()=>{try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}},{once:true});
 
+document.addEventListener('gesturestart',e=>e.preventDefault());document.addEventListener('dblclick',e=>e.preventDefault(),{passive:false});
 drawPad();drawHome();drawLock();setBattery(14);tick();$('#wCount').textContent='0/'+TOTAL;
 $('#flash').onclick=()=>toast('손전등');$('#lcam').onclick=()=>toast('남의 폰으로 사진 찍으면 안 돼요');
 (()=>{let y0=null;const L=$('#lock');L.addEventListener('pointerdown',e=>{y0=e.clientY});L.addEventListener('pointerup',e=>{if(y0!==null&&y0-e.clientY>60){$('#pass').hidden=false;$('#hint').textContent=''}y0=null})})();
