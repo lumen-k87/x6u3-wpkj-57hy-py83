@@ -1028,9 +1028,9 @@ function voiceApp(play){
   $('#winBody').onclick=e=>{const b=e.target.closest('[data-vm]');if(b&&!MEMOS[b.dataset.vm].audio)return;if(b){hush();stack.pop();nav(()=>voiceApp(b.dataset.vm))}};
   $('#vplay').onclick=()=>{
     $('#wave').classList.add('play');$('#vplay').disabled=true;let i=0;
-    if(m.audio){$('#vcap').textContent='';if(sel==='sleep')find('sleep');stopAudio();const au=new Audio(m.audio);callAudio=au;
+    if(m.audio){$('#vcap').textContent='';if(sel==='sleep')find('sleep');stopAudio();const au=new Audio(m.audio);callAudio=au;au._busy=true;au.addEventListener('ended',()=>au._busy=false);au.addEventListener('error',()=>au._busy=false);
       const fin=()=>{if(!$('#wave'))return;$('#wave').classList.remove('play');$('#vplay').disabled=false;if(sel==='sleep')find('sleep')};
-      au.onended=fin;au.play().catch(()=>setTimeout(fin,9000));return}
+      au.onended=fin;au.play().catch(()=>setTimeout(()=>{au._busy=false;fin()},9000));return}
     const step=()=>{if(!$('#vcap'))return;if(i>=m.lines.length){$('#wave').classList.remove('play');$('#vplay').disabled=false;if(sel==='sleep')find('sleep');return}
       const [w,t]=m.lines[i++];$('#vcap').innerHTML=`<em>${w==='t'?'태석':'해인'}</em>${esc(t)}`;say(t,w,step)};step();
   };
@@ -1154,10 +1154,10 @@ const CALLS={
 };
 const SUBS={'audio/taeseok_call1.mp3':[[0.28,1.7,'야, 너 어디야?'],[1.701,2.78,'왜 이렇게 전화를 안 받아?'],[4.2,5.166,'왜요는, 씨'],[5.167,6.399,'시간이 몇 신데?'],[7.92,8.82,'상관이 왜 없어?'],[9.16,10.6,'나한텐 조금만 늦어도 난리 치면서.'],[11.12,11.899,'빨리 안 들어와?']],'audio/taeseok_call2.mp3':[[0.68,1.366,'야이씨,'],[1.367,2.54,'왜 말이 없어?'],[2.541,3.44,'너 어디야?'],[4.059,4.959,'뭐?'],[5.4,5.94,'너 누구야?']],'audio/dongkyung_call.mp3':[[0.66,1.56,'착각하지 마.'],[2.38,4.019,'태석이가 너한테 흔들리는 것 같아도'],[5.28,6.18,'아니야.'],[6.98,7.88,'그렇게 자신 있어?'],[9.7,10.74,'그럼 한번 제대로 해보자.'],[12.24,13.74,'누가 더 태석이한테 필요한 사람인지.']]};
 let callAudio=null;
-function stopAudio(){if(callAudio){try{callAudio.pause()}catch(e){}callAudio=null}}
+function stopAudio(){if(callAudio){callAudio._busy=false;try{callAudio.pause()}catch(e){}callAudio=null}}
 function playCall(c,done){
   const box=$('#caps');box.innerHTML='<div class="vwave">'+Array.from({length:28},(_,i)=>`<i style="--hh:${25+Math.round(Math.abs(Math.sin(i*1.9))*70)}%;animation-delay:${(i%6)*.09}s"></i>`).join('')+'</div>';
-  stopAudio();const au=new Audio(c.audio);au.muted=!tts;callAudio=au;let fin=false;HEARD.add(c.audio);
+  stopAudio();const au=new Audio(c.audio);au.muted=!tts;callAudio=au;au._busy=true;au.addEventListener('ended',()=>au._busy=false);au.addEventListener('error',()=>au._busy=false);let fin=false;HEARD.add(c.audio);
   const cues=SUBS[c.audio];if(cues){box.insertAdjacentHTML('beforeend','<div class="sub"><span></span></div>');const sp=box.querySelector('.sub span');let cur=-1;
     const tick=()=>{if(callAudio!==au||fin){sp.classList.remove('on');return}const t=au.currentTime;let i=-1;for(let k=0;k<cues.length;k++)if(t>=cues[k][0])i=k;if(i>=0&&t>cues[i][1]+.35)i=-1;
       if(i!==cur){cur=i;if(i<0)sp.classList.remove('on');else{sp.textContent=cues[i][2];sp.classList.add('on')}}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
@@ -1237,8 +1237,8 @@ function dialOut(from,audio){
     sfxStop('dial');$('#call .sub-c').textContent='00:00';playCall({audio},()=>later(()=>{if(curCall==='out')endCall()},700))},1600);
 }
 function endCall(){sfxStop('ring');sfxStop('dial');if(inCall)sfx('hangup',{vol:.45});hush();stopAudio();inCall=false;curCall=null;clearInterval(secT);$('#call').classList.remove('show')}
-function audioBusy(){return inCall||!!(callAudio&&!callAudio.paused&&!callAudio.ended)}
-function maybeFinal(){if(finalFired||found.size<TOTAL)return;if(audioBusy()){maybeFinal._w=1;later(maybeFinal,700);return}if(maybeFinal._w){maybeFinal._w=0;later(maybeFinal,1400);return}
+function audioBusy(){return inCall||!!(callAudio&&callAudio._busy&&!callAudio.ended)}
+function maybeFinal(){if(finalFired||found.size<TOTAL)return;if(audioBusy()&&(maybeFinal._w||0)<40){maybeFinal._w=(maybeFinal._w||0)+1;later(maybeFinal,700);return}if(maybeFinal._w){maybeFinal._w=0;later(maybeFinal,1400);return}
   finalFired=true;setBattery(3);$('#prog').hidden=true;const d=$('#done');d.classList.add('show');buzz();sfx('complete',{vol:.6});
   later(()=>{d.classList.remove('show');banner('loc','선생님 팔찌가 이 폰 근처에 도착했습니다.');later(()=>ring('final'),2200)},2600)}
 /* launch switch: KST open time decides the ending button */
