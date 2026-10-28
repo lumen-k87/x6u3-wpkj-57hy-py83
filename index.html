@@ -5,7 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="robots" content="noindex,nofollow">
 <title>공해인의 휴대폰</title>
-<meta name="description" content="드라마 《몸으로 갚아요, 선생님》의 내용을 바탕으로 재창작한 가상의 휴대폰">
+<meta name="description" content="누군가 떨어뜨린 휴대폰. 숨겨진 비밀 9개를 찾아보세요 | 《몸으로 갚아요, 선생님》 10.31 쇼타임 공개">
+<meta property="og:type" content="website">
+<meta property="og:title" content="이 폰 속엔 3억짜리 비밀이 있다">
+<meta property="og:description" content="누군가 떨어뜨린 휴대폰. 숨겨진 비밀 9개를 찾아보세요 | 《몸으로 갚아요, 선생님》 10.31 쇼타임 공개">
+<meta property="og:image" content="https://shortime-hub.github.io/haein-phone/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://shortime-hub.github.io/haein-phone/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="이 폰 속엔 3억짜리 비밀이 있다">
+<meta name="twitter:description" content="누군가 떨어뜨린 휴대폰. 숨겨진 비밀 9개를 찾아보세요 | 《몸으로 갚아요, 선생님》 10.31 쇼타임 공개">
+<meta name="twitter:image" content="https://shortime-hub.github.io/haein-phone/img/og.jpg">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -361,6 +372,9 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
 .vwave{height:70px;display:flex;align-items:center;gap:4px;padding:0 10px}
 .vwave i{flex:1;height:20%;border-radius:3px;background:rgba(255,255,255,.75);animation:wv .8s ease-in-out infinite alternate}
 .vwave.stop i{animation:none;height:12%}
+.call .sub{min-height:58px;margin:14px 8px 0;display:flex;align-items:flex-start;justify-content:center;text-align:center}
+.call .sub span{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.45;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.55);word-break:keep-all;text-wrap:balance;opacity:0;transform:translateY(4px);transition:opacity .18s,transform .18s}
+.call .sub span.on{opacity:1;transform:none}
 .call .caps p{margin:0;font-family:var(--f-story);font-size:17px;line-height:1.6;background:rgba(0,0,0,.35);border-radius:12px;padding:8px 12px;animation:drop .4s both}
 .call .caps p.old{opacity:.45}
 .call .caps p em{display:block;font:500 11px var(--f-ui);font-style:normal;color:#ffb3bb;margin-bottom:2px}
@@ -426,7 +440,9 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
 .end .stclose{position:absolute;top:54px;left:16px;background:none;border:0;color:#fff;font:400 16px var(--f-ui);cursor:pointer;text-decoration:none!important}
 .end .poster{width:150px;aspect-ratio:3/4;border-radius:10px;overflow:hidden;max-width:100%}
 .end .poster img{width:100%;height:100%;object-fit:cover}
-.end a.cta{background:var(--neon);color:#fff;text-decoration:none;font-weight:700;padding:13px 24px;border-radius:999px}
+.end a.cta,.end .sharebtn{box-sizing:border-box;width:min(250px,78vw);height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto;padding:0 20px;border-radius:999px;font:700 15px var(--f-ui);letter-spacing:-.01em;text-decoration:none;cursor:pointer;-webkit-appearance:none;appearance:none}
+.end a.cta{background:var(--neon);color:#fff;border:1.5px solid var(--neon)}
+.end .sharebtn{background:none;border:1.5px solid rgba(255,255,255,.55);color:#fff;font-weight:600}
 .end button{background:none;border:0;color:#b9bdc8;text-decoration:underline;font:400 13px var(--f-ui);cursor:pointer}
 .legal{position:fixed;left:0;right:0;bottom:4px;text-align:center;font-size:10.5px;color:#5d6270;pointer-events:none;padding:0 16px}
 @media (max-height:700px){.lock .clock{font-size:66px;margin-top:60px}.pad{gap:10px 20px}.pad button{width:68px;height:68px}}
@@ -522,6 +538,7 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
         <div class="flip" id="flip2"><div class="in"><div class="f"><img src="img/still_candle_crop.jpg" alt="공해인"></div><div class="b"><img src="img/poster.jpg" alt="몸으로 갚아요, 선생님 포스터"></div></div></div>
         <p class="ctaText"></p>
         <a class="cta" href="#" target="_blank" rel="noopener">쇼타임에서 보기</a>
+        <button class="sharebtn" type="button">링크 공유하기</button>
       </div>
       <div class="end" id="end">
         <div class="flip" id="flip1"><div class="in"><div class="f"><img src="img/still_candle_crop.jpg" alt="공해인"></div><div class="b"><img src="img/poster.jpg" alt="몸으로 갚아요, 선생님 포스터"></div></div></div>
@@ -529,6 +546,7 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
         <p id="endScore"></p>
         <p class="ctaText">《몸으로 갚아요, 선생님》<br>쇼타임에서 지금 바로 만나보세요</p>
         <a class="cta" href="#" target="_blank" rel="noopener">쇼타임에서 보기</a>
+        <button class="sharebtn" type="button">링크 공유하기</button>
         <button id="again">처음부터 다시</button>
       </div>
 
@@ -938,7 +956,7 @@ const NOTES=[
 5. <s>그 방은 들어가면 안 돼요.</s> 이제 들어가도 됨.
 
 권유 아니고 명령.`},
- {id:'like',t:'선생님이 좋아하는 것',d:'11월 10일',pv:'바삭한 계란, 바나나우유, 삼각김밥',body:`· 계란: 바삭하게. 가장자리 갈색 될 때까지.
+ {id:'like',t:'선생님이 좋아하는 것',d:'11월 10일',pv:'계란: 바삭하게. 가장자리 갈색 될 때까지.',body:`· 계란: 바삭하게. 가장자리 갈색 될 때까지.
   노른자 완전히 익히기. (나는 반숙 좋아하는데)
 · 바나나우유 + 삼각김밥 (17살 때 책상 밑으로 넘겨줬던 거)
 · 마라탕 (내가 좋아하는 줄 알고 시키자고 함)
@@ -1133,11 +1151,15 @@ const CALLS={
  dong:{from:'d',audio:'audio/dongkyung_call.mp3'},
  final:{from:'t',audio:'audio/taeseok_call2.mp3',final:true}
 };
+const SUBS={'audio/taeseok_call1.mp3':[[0.28,1.7,'야, 너 어디야?'],[1.701,2.78,'왜 이렇게 전화를 안 받아?'],[4.2,5.166,'왜요는, 씨'],[5.167,6.399,'시간이 몇 신데?'],[7.92,8.82,'상관이 왜 없어?'],[9.16,10.6,'나한텐 조금만 늦어도 난리 치면서.'],[11.12,11.899,'빨리 안 들어와?']],'audio/taeseok_call2.mp3':[[0.68,1.366,'야이씨,'],[1.367,2.54,'왜 말이 없어?'],[2.541,3.44,'너 어디야?'],[4.059,4.959,'뭐?'],[5.4,5.94,'너 누구야?']],'audio/dongkyung_call.mp3':[[0.66,1.56,'착각하지 마.'],[2.38,4.019,'태석이가 너한테 흔들리는 것 같아도'],[5.28,6.18,'아니야.'],[6.98,7.88,'그렇게 자신 있어?'],[9.7,10.74,'그럼 한번 제대로 해보자.'],[12.24,13.74,'누가 더 태석이한테 필요한 사람인지.']]};
 let callAudio=null;
 function stopAudio(){if(callAudio){try{callAudio.pause()}catch(e){}callAudio=null}}
 function playCall(c,done){
   const box=$('#caps');box.innerHTML='<div class="vwave">'+Array.from({length:28},(_,i)=>`<i style="--hh:${25+Math.round(Math.abs(Math.sin(i*1.9))*70)}%;animation-delay:${(i%6)*.09}s"></i>`).join('')+'</div>';
   stopAudio();const au=new Audio(c.audio);au.muted=!tts;callAudio=au;let fin=false;HEARD.add(c.audio);
+  const cues=SUBS[c.audio];if(cues){box.insertAdjacentHTML('beforeend','<div class="sub"><span></span></div>');const sp=box.querySelector('.sub span');let cur=-1;
+    const tick=()=>{if(callAudio!==au||fin){sp.classList.remove('on');return}const t=au.currentTime;let i=-1;for(let k=0;k<cues.length;k++)if(t>=cues[k][0])i=k;if(i>=0&&t>cues[i][1]+.35)i=-1;
+      if(i!==cur){cur=i;if(i<0)sp.classList.remove('on');else{sp.textContent=cues[i][2];sp.classList.add('on')}}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
   const end=()=>{if(fin)return;fin=true;box.querySelector('.vwave')?.classList.add('stop');if(callAudio===au){done&&done()}};
   au.onended=end;au.onerror=()=>setTimeout(end,1500);
   if(c.final)later(()=>setBattery(1),6000);
@@ -1255,12 +1277,22 @@ const _pickOld=()=>{
   setTimeout(()=>{$('#off').classList.add('gone');buzz()},700);
 };
 $('#again').onclick=()=>location.reload();
+/* preload photos so they open instantly */
+const PRE=[];(()=>{const L=['av_taeseok','av_beom','av_haein','r1','r2','r3','r4','r5','r6','r7','r8','r9','feed_first','post8','post9','post10','post11','post12','post13','post14','post15','post16','s1','s2','s3','s4','s5','s6','m1','m2','hb1','hb2','hb3','poster','still_candle_crop','shortime_icon'];let i=0;const next=()=>{if(i>=L.length)return;const im=new Image();im.decoding='async';im.src='img/'+L[i++]+'.jpg';PRE.push(im);const go=()=>{(im.decode?im.decode():Promise.resolve()).catch(()=>{}).finally(()=>setTimeout(next,30))};im.complete?go():(im.onload=go,im.onerror=()=>setTimeout(next,30))};for(let k=0;k<4;k++)next()})();
 $('#startBtn').onclick=()=>{try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}
   try{const a=new Audio('audio/taeseok_call1.mp3');a.muted=true;a.play().then(()=>a.pause()).catch(()=>{})}catch(e){}
   sfxInit();sfx('buzz',{vol:.7});later(()=>sfx('ding',{vol:.5}),1300);
   $('#intro2').classList.add('gone');buzz()};
 /* best effort: some browsers allow sound on load; others block it until the first tap */
 setTimeout(()=>{try{const a=new Audio('audio/sfx_ding.mp3');a.volume=.5;const p=a.play();if(p)p.catch(()=>{})}catch(e){}},500);
+/* share: native share sheet on phones, copy link elsewhere */
+function shareLink(btn){const url=location.href.split('#')[0];const data={title:'공해인의 휴대폰',text:'누군가 떨어뜨린 휴대폰. 숨겨진 비밀 9개를 찾아보세요 | 《몸으로 갚아요, 선생님》',url};
+  const done=t=>{const o=btn.textContent;btn.textContent=t;setTimeout(()=>btn.textContent=o,1800)};
+  if(navigator.share){navigator.share(data).catch(()=>{});return}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>done('링크를 복사했어요')).catch(()=>prompt2(url,done));return}
+  prompt2(url,done)}
+function prompt2(url,done){try{const t=document.createElement('textarea');t.value=url;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();done('링크를 복사했어요')}catch(e){done('주소창의 링크를 복사해 주세요')}}
+document.querySelectorAll('.sharebtn').forEach(b=>b.onclick=()=>shareLink(b));
 $('#stClose').onclick=()=>$('#stapp').classList.remove('show');
 document.addEventListener('pointerdown',()=>{try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}},{once:true});
 
