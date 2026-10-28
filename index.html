@@ -568,6 +568,7 @@ let found=new Set(), battery=14, inCall=false, callDone=false, finalFired=false,
 
 /* ---------- people ---------- */
 const DEFAV='<svg viewBox="0 0 40 40" style="width:100%;height:100%;display:block"><rect width="40" height="40" fill="#a6dccf"/><circle cx="20" cy="15" r="6.5" fill="#eefaf6"/><rect x="9" y="24.5" width="22" height="8.5" rx="4.2" fill="#eefaf6"/></svg>';
+const TH=u=>/img\/(r\d|s\d|m\d|post\d+|hb\d|feed_first)\.jpg$/.test(u||'')?u.replace('img/','img/th/'):u;
 const avIn=p=>p.img?`<img src="${p.img}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">`:p.svg?DEFAV:p.av;
 const P={
   t:{name:'태석쌤',av:'🐶',bg:'#f2b56b',img:'img/av_taeseok.jpg'},
@@ -878,16 +879,16 @@ const ALBUMS={
 };
 let hiddenOpen=false;
 function photoAlbums(){
-  const cov=a=>a.items[0].img?`<img src="${a.items[0].img}" alt="">`:PH(a.items[0].ph,a.items[0].h);
+  const cov=a=>a.items[0].img?`<img src="${TH(a.items[0].img)}" alt="">`:PH(a.items[0].ph,a.items[0].h);
   const html='<div class="albums">'+['recent','t','m'].map(k=>`<button class="alb" data-alb="${k}"><div class="cov">${cov(ALBUMS[k])}</div><b>${ALBUMS[k].name}</b><small>${ALBUMS[k].items.length}</small></button>`).join('')+
-    `<button class="alb" data-alb="hidden"><div class="cov"><img src="img/hb2.jpg" alt=""><span class="lockcov">🔒</span></div><b>가려진 항목</b><small>잠김</small></button></div>`;
+    `<button class="alb" data-alb="hidden"><div class="cov"><img src="img/th/hb2.jpg" alt=""><span class="lockcov">🔒</span></div><b>가려진 항목</b><small>잠김</small></button></div>`;
   openWin('앨범',html);
   $('#winBody').onclick=e=>{const b=e.target.closest('[data-alb]');if(!b)return;const k=b.dataset.alb;
     if(k==='hidden')nav(hiddenGate);else nav(()=>photoGrid(k))};
 }
 function photoGrid(k){
   const a=ALBUMS[k];
-  const html='<div class="pgrid">'+a.items.map((it,i)=>`<button data-i="${i}" aria-label="사진 ${i+1}">${it.img?`<img src="${it.img}" alt=""${it.pos?` style="object-position:${it.pos}"`:''}>`:PH(it.ph,it.h)}</button>`).join('')+'</div>';
+  const html='<div class="pgrid">'+a.items.map((it,i)=>`<button data-i="${i}" aria-label="사진 ${i+1}">${it.img?`<img src="${TH(it.img)}" alt=""${it.pos?` style="object-position:${it.pos}"`:''}>`:PH(it.ph,it.h)}</button>`).join('')+'</div>';
   openWin(a.name,html,'앨범');
   $('#winBody').onclick=e=>{const b=e.target.closest('[data-i]');if(b)viewer(a.items,+b.dataset.i)};
 }
@@ -895,7 +896,7 @@ function viewer(items,start){
   if(!Array.isArray(items)){items=[items];start=0}
   const v=document.createElement('div');v.className='viewer';
   v.innerHTML=`<div class="top"><button class="vclose">‹ 닫기</button><span class="vcnt"></span><span style="width:50px"></span></div>
-    <div class="vtrack">${items.map(it=>`<div class="vslide">${it.img?`<img src="${it.img}" alt="" draggable="false">`:PH(it.ph,it.h)}</div>`).join('')}</div>
+    <div class="vtrack">${items.map(it=>`<div class="vslide"${it.img?` style="background:url(${TH(it.img)}) center/contain no-repeat"`:''}>${it.img?`<img src="${it.img}" alt="" draggable="false">`:PH(it.ph,it.h)}</div>`).join('')}</div>
     <button class="vnav prev" aria-label="이전 사진">‹</button><button class="vnav next" aria-label="다음 사진">›</button>
     <div class="vdots">${items.length>1?items.map(()=>'<i></i>').join(''):''}</div>`;
   $('#screen').appendChild(v);
@@ -923,7 +924,7 @@ function hiddenGate(){
 }
 function hiddenAlbum(){
   const items=[{img:'img/hb2.jpg'},{img:'img/hb1.jpg'},{img:'img/hb3.jpg'}];
-  const html='<div class="pgrid">'+items.map((it,i)=>`<button data-i="${i}">${it.img?`<img src="${it.img}" alt="">`:PH(it.ph,it.h)}</button>`).join('')+'</div><div class="fpbox" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:22px 16px;color:var(--sub);font-size:13px;text-align:center;cursor:pointer"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#ff3b30" stroke-width="1.8" stroke-linecap="round"><path d="M9 13a8 8 0 0 1 16 0v3"/><path d="M13 14a4 4 0 0 1 8 0v6c0 3-1 5-3 7"/><path d="M17 15v6c0 2-.6 4-2 6"/><path d="M5 20c.6-2 .9-4 1-7"/><path d="M28 18c0 3-.7 6-2 8"/><path d="M9 25c1-1.5 1.6-3.5 1.7-6"/></svg><b style="color:var(--ink);font-size:14px">원본을 보려면 지문 인식이 필요합니다</b></div>';
+  const html='<div class="pgrid">'+items.map((it,i)=>`<button data-i="${i}">${it.img?`<img src="${TH(it.img)}" alt="">`:PH(it.ph,it.h)}</button>`).join('')+'</div><div class="fpbox" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:22px 16px;color:var(--sub);font-size:13px;text-align:center;cursor:pointer"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#ff3b30" stroke-width="1.8" stroke-linecap="round"><path d="M9 13a8 8 0 0 1 16 0v3"/><path d="M13 14a4 4 0 0 1 8 0v6c0 3-1 5-3 7"/><path d="M17 15v6c0 2-.6 4-2 6"/><path d="M5 20c.6-2 .9-4 1-7"/><path d="M28 18c0 3-.7 6-2 8"/><path d="M9 25c1-1.5 1.6-3.5 1.7-6"/></svg><b style="color:var(--ink);font-size:14px">원본을 보려면 지문 인식이 필요합니다</b></div>';
   openWin('가려진 항목',html,'앨범');
   $('#winBody').onclick=e=>{if(e.target.closest('[data-i]')||e.target.closest('.fpbox'))fpSheet()};
 }
@@ -1126,7 +1127,7 @@ function feedApp(tab){
         <div class="st"><span><b>${POSTS.length}</b>게시물</span><span><b>2</b>팔로워</span><span><b>1</b>팔로잉</span></div></div>
       <div class="bio">내 삶의 빛</div>
       <div class="pbtns"><span>프로필 편집</span><span>프로필 공유</span></div>
-      <div class="pgrid ig">${POSTS.map((p,i)=>`<button data-post="${i}" aria-label="게시물 ${i+1}"><img src="${p.img}" alt=""></button>`).join('')}</div>`;
+      <div class="pgrid ig">${POSTS.map((p,i)=>`<button data-post="${i}" aria-label="게시물 ${i+1}"><img src="${TH(p.img)}" alt=""></button>`).join('')}</div>`;
   }
   openWin('피드',html);
   $('#winBody').onclick=e=>{const b=e.target.closest('[data-tab]');if(b){stack.pop();nav(()=>feedApp(b.dataset.tab));return}
@@ -1135,7 +1136,7 @@ function feedApp(tab){
 function postView(i){
   const p=POSTS[i];
   openWin('게시물',`<div class="post"><div class="hd"><span class="av"><img src="img/av_haein.jpg" alt=""></span>gong.haein</div>
-    <div class="img full"><img src="${p.img}" alt=""></div><div class="acts">♡ 💬 ↗</div>
+    <div class="img full" style="background:url(${TH(p.img)}) center/cover no-repeat"><img src="${p.img}" alt=""></div><div class="acts">♡ 💬 ↗</div>
     <div class="txt"><b>gong.haein</b> ${esc(p.cap)}</div>
     ${p.cm.length?`<div class="cmts">${cmHTML(p.cm)}</div>`:'<div style="height:18px"></div>'}</div>`,'피드');
 }
@@ -1236,7 +1237,8 @@ function dialOut(from,audio){
     sfxStop('dial');$('#call .sub-c').textContent='00:00';playCall({audio},()=>later(()=>{if(curCall==='out')endCall()},700))},1600);
 }
 function endCall(){sfxStop('ring');sfxStop('dial');if(inCall)sfx('hangup',{vol:.45});hush();stopAudio();inCall=false;curCall=null;clearInterval(secT);$('#call').classList.remove('show')}
-function maybeFinal(){if(finalFired||found.size<TOTAL)return;if(inCall){later(maybeFinal,5000);return}
+function audioBusy(){return inCall||!!(callAudio&&!callAudio.paused&&!callAudio.ended)}
+function maybeFinal(){if(finalFired||found.size<TOTAL)return;if(audioBusy()){maybeFinal._w=1;later(maybeFinal,700);return}if(maybeFinal._w){maybeFinal._w=0;later(maybeFinal,1400);return}
   finalFired=true;setBattery(3);$('#prog').hidden=true;const d=$('#done');d.classList.add('show');buzz();sfx('complete',{vol:.6});
   later(()=>{d.classList.remove('show');banner('loc','선생님 팔찌가 이 폰 근처에 도착했습니다.');later(()=>ring('final'),2200)},2600)}
 /* launch switch: KST open time decides the ending button */
@@ -1278,7 +1280,7 @@ const _pickOld=()=>{
 };
 $('#again').onclick=()=>location.reload();
 /* preload photos so they open instantly */
-const PRE=[];(()=>{const L=['av_taeseok','av_beom','av_haein','r1','r2','r3','r4','r5','r6','r7','r8','r9','feed_first','post8','post9','post10','post11','post12','post13','post14','post15','post16','s1','s2','s3','s4','s5','s6','m1','m2','hb1','hb2','hb3','poster','still_candle_crop','shortime_icon'];let i=0;const next=()=>{if(i>=L.length)return;const im=new Image();im.decoding='async';im.src='img/'+L[i++]+'.jpg';PRE.push(im);const go=()=>{(im.decode?im.decode():Promise.resolve()).catch(()=>{}).finally(()=>setTimeout(next,30))};im.complete?go():(im.onload=go,im.onerror=()=>setTimeout(next,30))};for(let k=0;k<4;k++)next()})();
+const PRE=[];(()=>{const L=['th/r1','th/r2','th/r3','th/r4','th/r5','th/r6','th/r7','th/r8','th/r9','th/feed_first','th/post8','th/post9','th/post10','th/post11','th/post12','th/post13','th/post14','th/post15','th/post16','th/s1','th/s2','th/s3','th/s4','th/s5','th/s6','th/m1','th/m2','th/hb1','th/hb2','th/hb3','av_taeseok','av_beom','av_haein','r1','r2','r3','r4','r5','r6','r7','r8','r9','feed_first','post8','post9','post10','post11','post12','post13','post14','post15','post16','s1','s2','s3','s4','s5','s6','m1','m2','hb1','hb2','hb3','poster','still_candle_crop','shortime_icon'];let i=0;const next=()=>{if(i>=L.length)return;const im=new Image();im.decoding='async';im.src='img/'+L[i++]+'.jpg';PRE.push(im);const go=()=>{(im.decode?im.decode():Promise.resolve()).catch(()=>{}).finally(()=>setTimeout(next,30))};im.complete?go():(im.onload=go,im.onerror=()=>setTimeout(next,30))};for(let k=0;k<4;k++)next()})();
 $('#startBtn').onclick=()=>{try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}
   try{const a=new Audio('audio/taeseok_call1.mp3');a.muted=true;a.play().then(()=>a.pause()).catch(()=>{})}catch(e){}
   sfxInit();sfx('buzz',{vol:.7});later(()=>sfx('ding',{vol:.5}),1300);
