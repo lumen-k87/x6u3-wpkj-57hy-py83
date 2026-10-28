@@ -419,14 +419,14 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
 .intro2 small{color:rgba(255,255,255,.75);font-size:11px;line-height:1.5;text-align:center;word-break:keep-all;text-shadow:0 1px 3px rgba(0,0,0,.5)}
 
 /* end */
-.end{position:absolute;inset:0;z-index:99;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:safe center;gap:16px;padding:28px;text-align:center;opacity:0;pointer-events:none;transition:opacity 1.2s;overflow-y:auto;padding-top:max(28px,env(safe-area-inset-top,0px))}
+.end{position:absolute;inset:0;z-index:99;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:safe center;gap:12px;padding:20px 24px;text-align:center;opacity:0;pointer-events:none;transition:opacity 1.2s;overflow-y:auto;padding-top:max(20px,env(safe-area-inset-top,0px))}
 .end.show{opacity:1;pointer-events:auto}
 .end .empty{flex:none;width:70px;height:34px;border:3px solid #fff;border-radius:8px;position:relative;opacity:.8}
 .end .empty::after{content:"";position:absolute;right:-9px;top:9px;width:5px;height:12px;background:#fff;border-radius:0 3px 3px 0}
 .end .empty::before{content:"";position:absolute;left:3px;top:3px;bottom:3px;width:4px;background:var(--ios-red);border-radius:2px}
-.end h2{font-family:var(--f-story);font-size:24px;line-height:1.5;margin:6px 0 0;text-wrap:balance}
-.end p{margin:0;color:#b9bdc8;font-size:14px;line-height:1.7}
-.flip{width:min(210px,58%,30vh);aspect-ratio:1429/2000;perspective:1000px;flex:none}
+.end h2{font-family:var(--f-story);font-size:21px;line-height:1.45;margin:4px 0 0;text-wrap:balance}
+.end p{margin:0;color:#b9bdc8;font-size:13.5px;line-height:1.6}
+.flip{height:min(300px,38vh);height:min(300px,38svh);width:auto;max-width:70%;aspect-ratio:1429/2000;perspective:1000px;flex:none}
 .flip .in{position:relative;width:100%;height:100%;transition:transform 1.1s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d}
 .flip.go .in{transform:rotateY(180deg)}
 .flip .f,.flip .b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.5)}
@@ -520,8 +520,6 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
         <a class="cta" href="#" target="_blank" rel="noopener">쇼타임에서 보기</a>
       </div>
       <div class="end" id="end">
-        <div class="empty" aria-hidden="true"></div>
-        <p>배터리가 모두 소모되어 전원이 꺼졌습니다.</p>
         <div class="flip" id="flip1"><div class="in"><div class="f"><img src="img/still_candle_crop.jpg" alt="공해인"></div><div class="b"><img src="img/poster.jpg" alt="몸으로 갚아요, 선생님 포스터"></div></div></div>
         <h2>이 폰의 주인, 공해인.<br>그리고 그를 찾아온 사람.</h2>
         <p id="endScore"></p>
@@ -656,10 +654,23 @@ setInterval(()=>{minute++;tick()},60000);
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),1900)}
 /* sound effects (pre-unlocked on the start tap so they can play later on iOS) */
 const SFXN=['buzz','ring','ding','found','unlock','dial','hangup','complete','powerdown'],SFX={};
-function sfxInit(){SFXN.forEach(n=>{try{const a=new Audio('audio/sfx_'+n+'.mp3');a.preload='auto';SFX[n]=a;a.muted=true;
-  const p=a.play();if(p)p.then(()=>{if(a._using)return;a.pause();a.currentTime=0;a.muted=false}).catch(()=>{a.muted=false});else a.muted=false}catch(e){}})}
-function sfx(n,o){o=o||{};const a=SFX[n]||(SFX[n]=new Audio('audio/sfx_'+n+'.mp3'));try{a._using=true;a.muted=false;a.loop=!!o.loop;a.volume=o.vol==null?.55:o.vol;a.currentTime=0;const p=a.play();if(p)p.catch(()=>{})}catch(e){}}
-function sfxStop(n){const a=SFX[n];if(a){try{a.pause();a.currentTime=0;a.loop=false}catch(e){}}}
+let AC=null;const BUF={},PLAY={};
+function sfxInit(){
+  try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
+  try{AC=new (window.AudioContext||window.webkitAudioContext)();AC.resume&&AC.resume();
+    const sb=AC.createBuffer(1,1,22050),src=AC.createBufferSource();src.buffer=sb;src.connect(AC.destination);src.start(0)}catch(e){AC=null}
+  SFXN.forEach(n=>{
+    if(AC)fetch('audio/sfx_'+n+'.mp3').then(r=>r.arrayBuffer()).then(ab=>new Promise((res,rej)=>AC.decodeAudioData(ab,res,rej))).then(bf=>{BUF[n]=bf}).catch(()=>{});
+    try{const el=new Audio('audio/sfx_'+n+'.mp3');el.preload='auto';SFX[n]=el;el.muted=true;const p=el.play();
+      if(p)p.then(()=>{if(el._using)return;el.pause();el.currentTime=0;el.muted=false}).catch(()=>{el.muted=false});else el.muted=false}catch(e){}
+  });
+}
+function sfx(n,o){o=o||{};const vol=o.vol==null?.55:o.vol;
+  if(AC&&BUF[n]){try{if(AC.state!=='running')AC.resume();sfxStop(n);const src=AC.createBufferSource(),g=AC.createGain();src.buffer=BUF[n];src.loop=!!o.loop;g.gain.value=vol;src.connect(g);g.connect(AC.destination);src.start(0);PLAY[n]=src;return}catch(e){}}
+  const a=SFX[n]||(SFX[n]=new Audio('audio/sfx_'+n+'.mp3'));try{a._using=true;a.muted=false;a.loop=!!o.loop;a.volume=vol;a.currentTime=0;const p=a.play();if(p)p.catch(()=>{})}catch(e){}}
+function sfxStop(n){const s=PLAY[n];if(s){try{s.stop()}catch(e){}PLAY[n]=null}
+  const a=SFX[n];if(a){try{a.pause();a.currentTime=0;a.loop=false}catch(e){}}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&AC&&AC.state!=='running')try{AC.resume()}catch(e){}});
 function find(k){if(found.has(k))return;found.add(k);lastFind=Date.now();if(k!=='unlock')sfx('found',{vol:.5});
   $('#wCount').textContent=found.size+'/'+TOTAL;$('#wBar').style.width=(found.size/TOTAL*100)+'%';
   const f=$('#found');f.textContent='비밀 발견 · '+SECRETS[k]+' ('+found.size+'/'+TOTAL+')';f.classList.add('show');clearTimeout(f._t);f._t=setTimeout(()=>f.classList.remove('show'),3800);updProg(true);
