@@ -54,16 +54,6 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
   .phone::before,.phone::after{display:none}
   .screen{inset:0;border-radius:0}
   .legal{display:none}
-  .sb,.island{display:none!important}
-  .bar-top{padding-top:12px}
-  .home{padding-top:22px}
-  .lock .date{margin-top:40px}
-  .pass{padding-top:70px}
-  .banner{top:8px}
-  .viewer .top{padding-top:14px}
-  .end .stclose{top:14px}
-  .call{padding-top:60px}
-  .prog{top:10px}
 }
 .crack{position:absolute;inset:0;pointer-events:none;z-index:90;opacity:.5}
 .off{position:absolute;inset:0;background:#000;z-index:95;transition:opacity .6s}
@@ -441,6 +431,20 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
 .legal{position:fixed;left:0;right:0;bottom:4px;text-align:center;font-size:10.5px;color:#5d6270;pointer-events:none;padding:0 16px}
 @media (max-height:700px){.lock .clock{font-size:66px;margin-top:60px}.pad{gap:10px 20px}.pad button{width:68px;height:68px}}
 @media (prefers-reduced-motion:reduce){*,.rain{animation:none!important;transition:none!important}}
+/* mobile overrides — must stay last so they win over base rules */
+@media (max-width:460px){
+  .sb,.island{display:none!important}
+  .bar-top{padding-top:12px}
+  .home{padding-top:22px}
+  .lock .date{margin-top:40px}
+  .pass{padding-top:70px}
+  .banner{top:8px}
+  .viewer .top{padding-top:14px}
+  .end .stclose{top:14px}
+  .call{padding-top:60px}
+  .prog{top:10px}
+  .notis{margin-top:20px}
+}
 </style>
 </head>
 <body>
