@@ -54,6 +54,16 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
   .phone::before,.phone::after{display:none}
   .screen{inset:0;border-radius:0}
   .legal{display:none}
+  .sb,.island{display:none!important}
+  .bar-top{padding-top:12px}
+  .home{padding-top:22px}
+  .lock .date{margin-top:40px}
+  .pass{padding-top:70px}
+  .banner{top:8px}
+  .viewer .top{padding-top:14px}
+  .end .stclose{top:14px}
+  .call{padding-top:60px}
+  .prog{top:10px}
 }
 .crack{position:absolute;inset:0;pointer-events:none;z-index:90;opacity:.5}
 .off{position:absolute;inset:0;background:#000;z-index:95;transition:opacity .6s}
@@ -132,6 +142,7 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
 .widget .bar i{display:block;height:100%;background:var(--neon);width:0;transition:width .6s}
 .widget .nx{display:flex;justify-content:space-between;font-size:13.5px;gap:8px}
 .widget .nx span:first-child{border-left:3px solid #6ea8ff;padding-left:8px}
+.widget .nx span:last-child b{color:#ff8a96;font-size:15px}
 .widget .nx span:last-child{color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums;white-space:nowrap}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 6px;margin-top:26px}
 .app{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;cursor:pointer;color:#fff;font:400 12px var(--f-ui);position:relative;text-shadow:0 1px 3px rgba(0,0,0,.35);padding:0}
@@ -211,6 +222,18 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
 .viewer .pic{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .viewer .pic img{max-height:100%;max-width:100%}
 .viewer .pic .ph{height:62%;font-size:15px;align-items:center;justify-content:center;text-align:center;padding:24px}
+.viewer .vcnt{font-size:14px;opacity:.85;font-variant-numeric:tabular-nums}
+.vtrack{flex:1;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior:contain;touch-action:pan-x}
+.vtrack::-webkit-scrollbar{display:none}
+.vslide{flex:0 0 100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.vslide img{max-width:100%;max-height:100%;object-fit:contain;-webkit-user-drag:none;user-select:none}
+.vslide .ph{height:62%;width:100%;font-size:15px;align-items:center;justify-content:center;text-align:center;padding:24px}
+.vnav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font:400 26px/1 var(--f-ui);cursor:pointer;display:grid;place-items:center;padding:0 0 3px}
+.vnav.prev{left:10px}.vnav.next{right:10px}
+@media (hover:none){.vnav{display:none!important}}
+.vdots{display:flex;justify-content:center;gap:6px;padding:14px 0 28px;min-height:8px}
+.vdots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35)}
+.vdots i.on{background:#fff}
 .viewer .cap{padding:14px 18px 26px;font-size:14px;line-height:1.6;color:#d9dbe2}
 .secret-in{padding:26px 22px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
 .secret-in .big{font-size:44px}
@@ -291,7 +314,7 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
 .locsheet h3{margin:0;font-size:19px}
 .locsheet .dist{font-size:13px;color:var(--sub);margin:3px 0 12px}
 .hist{list-style:none;margin:0;padding:0;font-size:13.5px}
-.hist li{display:grid;grid-template-columns:48px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.hist li{display:grid;grid-template-columns:76px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
 .hist li b{font-variant-numeric:tabular-nums;color:var(--sub);font-weight:500}
 .hist li.warn span{color:var(--ios-red);font-weight:700}
 
@@ -373,18 +396,37 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
 .banner .noti{background:rgba(38,38,42,.82);box-shadow:0 8px 24px rgba(0,0,0,.3);cursor:pointer}
 .toast{position:absolute;left:50%;bottom:70px;transform:translate(-50%,20px);opacity:0;z-index:86;background:rgba(20,20,24,.88);color:#fff;font-size:13px;padding:9px 14px;border-radius:12px;transition:.3s;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-.found{position:absolute;left:50%;top:56px;transform:translate(-50%,-10px);opacity:0;z-index:87;background:var(--neon);color:#fff;font:700 12.5px var(--f-ui);padding:7px 14px;border-radius:999px;transition:.35s;pointer-events:none;white-space:nowrap}
-.found.show{opacity:1;transform:translate(-50%,0)}
+.found{position:absolute;left:50%;top:50%;transform:translate(-50%,-40%) scale(.92);opacity:0;z-index:87;background:rgba(20,10,14,.92);color:#fff;font:700 15px var(--f-ui);padding:14px 20px;box-shadow:0 10px 30px rgba(0,0,0,.4);border:1.5px solid var(--neon);border-radius:999px;transition:.35s;pointer-events:none;white-space:nowrap}
+.found.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.prog{position:absolute;top:58px;right:12px;z-index:84;display:none;background:rgba(210,58,74,.95);color:#fff;font:700 12px var(--f-ui);padding:5px 10px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.3);pointer-events:none;font-variant-numeric:tabular-nums;transition:transform .3s}
+.prog.pop{transform:scale(1.25)}
+.screen:has(.viewer) .prog{display:none!important}
+.screen.inapp .prog:not([hidden]){display:block}
+.done{position:absolute;inset:0;z-index:92;background:rgba(8,4,8,.9);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:28px;opacity:0;pointer-events:none;transition:opacity .5s}
+.done.show{opacity:1}
+.done .big{font:800 54px/1 var(--f-ui);color:var(--neon);font-variant-numeric:tabular-nums}
+.done h2{margin:0;font-family:var(--f-story);font-size:22px;line-height:1.5}
+.done p{margin:0;color:#c9ccd4;font-size:14px;line-height:1.6}
+.intro2{position:absolute;inset:0;z-index:150;background:rgba(0,0,0,.38);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;transition:opacity .4s}
+.intro2.gone{opacity:0;pointer-events:none}
+.ialert{width:100%;max-width:286px;background:rgba(242,242,247,.96);border-radius:18px;overflow:hidden;text-align:center;color:#111;box-shadow:0 20px 50px rgba(0,0,0,.45);animation:pop .35s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes pop{from{transform:scale(.85);opacity:0}}
+.ialert .ihead{background:var(--neon);color:#fff;font:700 13px var(--f-ui);padding:9px}
+.ialert b{display:block;font:700 17px var(--f-ui);margin:16px 16px 6px}
+.ialert p{margin:0 16px 16px;font-size:13.5px;line-height:1.6;color:#333}
+.ialert p em{font-style:normal;font-weight:800;color:var(--neon)}
+.ialert button{display:block;width:100%;border:0;border-top:1px solid rgba(0,0,0,.12);background:none;color:#0a7aff;font:700 17px var(--f-ui);padding:13px;cursor:pointer}
+.intro2 small{color:rgba(255,255,255,.75);font-size:11px;line-height:1.5;text-align:center;word-break:keep-all;text-shadow:0 1px 3px rgba(0,0,0,.5)}
 
 /* end */
-.end{position:absolute;inset:0;z-index:99;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:28px;text-align:center;opacity:0;pointer-events:none;transition:opacity 1.2s}
+.end{position:absolute;inset:0;z-index:99;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:safe center;gap:16px;padding:28px;text-align:center;opacity:0;pointer-events:none;transition:opacity 1.2s;overflow-y:auto;padding-top:max(28px,env(safe-area-inset-top,0px))}
 .end.show{opacity:1;pointer-events:auto}
-.end .empty{width:70px;height:34px;border:3px solid #fff;border-radius:8px;position:relative;opacity:.8}
+.end .empty{flex:none;width:70px;height:34px;border:3px solid #fff;border-radius:8px;position:relative;opacity:.8}
 .end .empty::after{content:"";position:absolute;right:-9px;top:9px;width:5px;height:12px;background:#fff;border-radius:0 3px 3px 0}
 .end .empty::before{content:"";position:absolute;left:3px;top:3px;bottom:3px;width:4px;background:var(--ios-red);border-radius:2px}
 .end h2{font-family:var(--f-story);font-size:24px;line-height:1.5;margin:6px 0 0;text-wrap:balance}
 .end p{margin:0;color:#b9bdc8;font-size:14px;line-height:1.7}
-.flip{width:min(210px,58%);aspect-ratio:1429/2000;perspective:1000px;flex:none}
+.flip{width:min(210px,58%,30vh);aspect-ratio:1429/2000;perspective:1000px;flex:none}
 .flip .in{position:relative;width:100%;height:100%;transition:transform 1.1s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d}
 .flip.go .in{transform:rotateY(180deg)}
 .flip .f,.flip .b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.5)}
@@ -436,7 +478,7 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
         <div class="notis" id="notis"></div>
         <div class="bottom">
           <button class="qb" id="flash" aria-label="손전등"><svg width="16" height="24" viewBox="0 0 16 24"><path d="M3 1h10v4l-2 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9L3 5z" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><circle cx="8" cy="13" r="1.4" fill="#fff"/></svg></button>
-          <button class="unlock" id="toPass">눌러서 암호 입력</button>
+          <button class="unlock" id="toPass">위로 쓸어 올려 열기</button>
           <button class="qb" id="lcam" aria-label="카메라"><svg width="24" height="20" viewBox="0 0 24 20"><path d="M2 6a2 2 0 0 1 2-2h3l2-3h6l2 3h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="11" r="4" fill="none" stroke="#fff" stroke-width="1.6"/></svg></button>
         </div>
         <span class="hbar"></span>
@@ -459,6 +501,17 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
       <div class="banner" id="banner"></div>
       <div class="toast" id="toast"></div>
       <div class="found" id="found"></div>
+      <div class="prog" id="prog" hidden>비밀 0/9</div>
+      <div class="done" id="done"><div class="big">9/9</div><h2>모든 비밀을 찾았어요</h2><p>그런데… 누군가 이 폰을 향해 오고 있다.</p></div>
+      <div class="intro2" id="intro2">
+        <div class="ialert">
+          <div class="ihead">🔊 소리를 켜고 플레이해 주세요</div>
+          <b>누군가 떨어뜨린 휴대폰</b>
+          <p>잠금화면에 같은 이름이 계속 떠오른다.<br>이 폰에 숨겨진 <em>비밀 9개</em>를 모두 찾으면<br>폰 주인의 진짜 이야기가 열려요.</p>
+          <button id="startBtn">비밀 찾기 시작</button>
+        </div>
+        <small>드라마 《몸으로 갚아요, 선생님》의 내용을 바탕으로<br>재창작한 가상의 휴대폰입니다.</small>
+      </div>
 
       <div class="end stapp" id="stapp">
         <button class="stclose" id="stClose">‹ 닫기</button>
@@ -601,15 +654,23 @@ setInterval(()=>{minute++;tick()},60000);
 
 /* ---------- feedback ---------- */
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),1900)}
-function find(k){if(found.has(k))return;found.add(k);lastFind=Date.now();
+/* sound effects (pre-unlocked on the start tap so they can play later on iOS) */
+const SFXN=['buzz','ring','ding','found','unlock','dial','hangup','complete','powerdown'],SFX={};
+function sfxInit(){SFXN.forEach(n=>{try{const a=new Audio('audio/sfx_'+n+'.mp3');a.preload='auto';SFX[n]=a;a.muted=true;
+  const p=a.play();if(p)p.then(()=>{if(a._using)return;a.pause();a.currentTime=0;a.muted=false}).catch(()=>{a.muted=false});else a.muted=false}catch(e){}})}
+function sfx(n,o){o=o||{};const a=SFX[n]||(SFX[n]=new Audio('audio/sfx_'+n+'.mp3'));try{a._using=true;a.muted=false;a.loop=!!o.loop;a.volume=o.vol==null?.55:o.vol;a.currentTime=0;const p=a.play();if(p)p.catch(()=>{})}catch(e){}}
+function sfxStop(n){const a=SFX[n];if(a){try{a.pause();a.currentTime=0;a.loop=false}catch(e){}}}
+function find(k){if(found.has(k))return;found.add(k);lastFind=Date.now();if(k!=='unlock')sfx('found',{vol:.5});
   $('#wCount').textContent=found.size+'/'+TOTAL;$('#wBar').style.width=(found.size/TOTAL*100)+'%';
-  const f=$('#found');f.textContent='비밀 발견 · '+SECRETS[k]+' ('+found.size+'/'+TOTAL+')';f.classList.add('show');clearTimeout(f._t);f._t=setTimeout(()=>f.classList.remove('show'),2200);
-  if(found.size>=TOTAL&&!finalFired){later(()=>maybeFinal(),5000)}
+  const f=$('#found');f.textContent='비밀 발견 · '+SECRETS[k]+' ('+found.size+'/'+TOTAL+')';f.classList.add('show');clearTimeout(f._t);f._t=setTimeout(()=>f.classList.remove('show'),3800);updProg(true);
+  if(found.size>=TOTAL&&!finalFired){later(()=>maybeFinal(),1800)}
 }
+function t12(tm){const m=/^(\d{1,2}):(\d{2})$/.exec(tm||'');if(!m)return tm;const h=+m[1];return (h<12?'오전 ':'오후 ')+((h%12)||12)+':'+m[2]}
+function updProg(pop){const e=$('#prog');if(!e)return;e.textContent='비밀 '+found.size+'/'+TOTAL;if(found.has('unlock')&&!finalFired)e.hidden=false;if(pop){e.classList.add('pop');setTimeout(()=>e.classList.remove('pop'),300)}}
 function later(fn,ms){const id=setTimeout(fn,ms);timers.push(id);return id}
 function banner(from,body,onTap,app,dur){
   $('#banner').innerHTML=notiHTML(from,app||(from==='loc'?'loc':'talk'),body,'지금');
-  const bn=$('#banner');bn.classList.add('show');buzz();
+  const bn=$('#banner');bn.classList.add('show');buzz();if(!inCall)sfx('ding',{vol:.5});
   bn.onclick=()=>{bn.classList.remove('show');onTap&&onTap()};
   clearTimeout(bn._t);bn._t=setTimeout(()=>bn.classList.remove('show'),dur||3600);
 }
@@ -646,9 +707,9 @@ function hush(){try{speechSynthesis.cancel()}catch(e){}if(!inCall)stopAudio()}
 /* ---------- lock screen ---------- */
 const LOCK_NOTIS=[
  ['t','talk','…걱정되게 하지 말고','지금'],
- ['t','phone','부재중 전화 6통','3분 전'],
- ['loc','loc','선생님 팔찌가 설정 구역을 벗어났습니다.','1시간 전'],
- ['card','card','[가족카드 범태석] 승인 14,300원 · 서울 개인택시','1시간 전'],
+ ['t','phone','부재중 전화 6통','6분 전'],
+ ['loc','loc','선생님 팔찌가 설정 구역을 벗어났습니다.','오전 12:05'],
+ ['card','card','[가족카드 범태석] 승인 14,300원 · 서울 개인택시','오전 12:07'],
  ['d','talk','…빠르네. 제대로 하자는 거지?','어제'],
  ['cal','cal','내일 · 🎂 선생님 생일 (11월 15일)','어제'],
  ['t','talk','너 폰 비번 아직도 내 생일이냐? 소름이다 진짜','11월 7일']
@@ -686,7 +747,7 @@ function check(){
 function unlock(){
   $('#pass').hidden=true;$('#lock').style.transition='transform .45s,opacity .45s';$('#lock').style.transform='translateY(-100%)';$('#lock').style.opacity='0';
   setTimeout(()=>{$('#lock').hidden=true},460);
-  $('#sb').classList.remove('dark','lockmode');find('unlock');
+  $('#sb').classList.remove('dark','lockmode');sfx('unlock',{vol:.6});find('unlock');
   later(()=>banner('t','어디냐고. 진짜',()=>openApp('talk','t')),5000);
   later(()=>ring('first'),16000);
 }
@@ -696,9 +757,9 @@ let stack=[];
 function openWin(title,html,backLabel,foot){
   $('#winTitle').textContent=title;$('#winBody').innerHTML=html;$('#winBody').scrollTop=0;
   $('#back').textContent='‹ '+(backLabel||'홈');$('#winFoot').innerHTML=foot||'';
-  $('#win').classList.add('open');$('#sb').classList.add('dark');
+  $('#win').classList.add('open');$('#sb').classList.add('dark');$('#screen').classList.add('inapp');
 }
-function closeWin(){$('#win').classList.remove('open');$('#sb').classList.remove('dark');stack=[];hush();drawHome()}
+function closeWin(){$('#win').classList.remove('open');$('#screen').classList.remove('inapp');$('#sb').classList.remove('dark');stack=[];hush();drawHome()}
 $('#back').onclick=()=>{hush();if(stack.length>1){stack.pop();stack[stack.length-1]()}else closeWin()};
 function nav(fn){stack.push(fn);fn()}
 
@@ -720,7 +781,7 @@ function talkList(){
 function meBub(w,t,tm){
   const bub=w==='meLoc'?`<span class="bub" style="padding:0;background:none"><span class="loc"><span class="map"></span><div>📍 위치 공유<br><b>${esc(t)}</b></div></span></span>`
     :w==='meDel'?`<span class="bub del">메시지가 삭제되었습니다.</span>`:`<span class="bub">${esc(t)}</span>`;
-  return `<div class="m me">${bub}<span class="meta">${tm}</span></div>`;
+  return `<div class="m me">${bub}<span class="meta">${t12(tm)}</span></div>`;
 }
 function talkRoom(id){
   const c=CHATS.find(x=>x.id===id),p=P[id];c.unread=0;
@@ -728,7 +789,7 @@ function talkRoom(id){
   while(i<M.length){const [w,t,tm]=M[i];
     if(w==='day'){html+=`<div class="day">${t}</div>`;i++;continue}
     if(w.startsWith('me')){html+=meBub(w,t,tm);i++;continue}
-    let g='';while(i<M.length&&M[i][0]===w){g+=`<div class="ln"><span class="bub">${esc(M[i][1])}</span><span class="meta">${M[i][2]}</span></div>`;i++}
+    let g='';while(i<M.length&&M[i][0]===w){g+=`<div class="ln"><span class="bub">${esc(M[i][1])}</span><span class="meta">${t12(M[i][2])}</span></div>`;i++}
     html+=`<div class="grp"><span class="mini" style="background:${p.bg}">${avIn(p)}</span><div class="col"><div class="nm2">${esc(p.name)}</div>${g}</div></div>`;
   }
   html+=(id==='m'?'<div class="day">아직 답장하지 않았습니다</div>':'')+'</div>';
@@ -739,7 +800,7 @@ function talkRoom(id){
   const snd=$('#winFoot .snd');
   if(snd)snd.onclick=()=>{
     if(!c.draft){toast('남의 톡은 보낼 수 없어요');return}
-    const mm=String(Math.min(59,minute)).padStart(2,'0');c.msgs.push(['me',c.draft,'01:'+mm]);c.last=c.draft;c.draft='';
+    const mm=String(Math.min(59,minute)).padStart(2,'0');c.msgs.push(['me',c.draft,'01:'+mm]);c.last=c.draft;c.time=t12('01:'+mm);c.draft='';
     find('send');stack.pop();nav(()=>talkRoom(id));
   };
   if(id==='d')find('dong');
@@ -795,12 +856,28 @@ function photoGrid(k){
   const a=ALBUMS[k];
   const html='<div class="pgrid">'+a.items.map((it,i)=>`<button data-i="${i}" aria-label="사진 ${i+1}">${it.img?`<img src="${it.img}" alt=""${it.pos?` style="object-position:${it.pos}"`:''}>`:PH(it.ph,it.h)}</button>`).join('')+'</div>';
   openWin(a.name,html,'앨범');
-  $('#winBody').onclick=e=>{const b=e.target.closest('[data-i]');if(b)viewer(a.items[+b.dataset.i])};
+  $('#winBody').onclick=e=>{const b=e.target.closest('[data-i]');if(b)viewer(a.items,+b.dataset.i)};
 }
-function viewer(it){
+function viewer(items,start){
+  if(!Array.isArray(items)){items=[items];start=0}
   const v=document.createElement('div');v.className='viewer';
-  v.innerHTML=`<div class="top"><button>‹ 닫기</button><span style="font-size:13px;opacity:.7">11월</span><span style="width:50px"></span></div><div class="pic">${it.img?`<img src="${it.img}" alt="">`:PH(it.ph,it.h)}</div>${it.cap?`<div class="cap">${esc(it.cap)}</div>`:'<div style="height:40px"></div>'}`;
-  v.querySelector('button').onclick=()=>v.remove();$('#screen').appendChild(v);
+  v.innerHTML=`<div class="top"><button class="vclose">‹ 닫기</button><span class="vcnt"></span><span style="width:50px"></span></div>
+    <div class="vtrack">${items.map(it=>`<div class="vslide">${it.img?`<img src="${it.img}" alt="" draggable="false">`:PH(it.ph,it.h)}</div>`).join('')}</div>
+    <button class="vnav prev" aria-label="이전 사진">‹</button><button class="vnav next" aria-label="다음 사진">›</button>
+    <div class="vdots">${items.length>1?items.map(()=>'<i></i>').join(''):''}</div>`;
+  $('#screen').appendChild(v);
+  const tr=v.querySelector('.vtrack'),cnt=v.querySelector('.vcnt'),dots=[...v.querySelectorAll('.vdots i')];
+  const cur=()=>Math.round(tr.scrollLeft/tr.clientWidth);
+  const upd=()=>{const i=cur();cnt.textContent=items.length>1?(i+1)+' / '+items.length:'';dots.forEach((d,k)=>d.classList.toggle('on',k===i));
+    v.querySelector('.prev').hidden=i<=0;v.querySelector('.next').hidden=i>=items.length-1};
+  const go=i=>tr.scrollTo({left:Math.max(0,Math.min(items.length-1,i))*tr.clientWidth,behavior:'smooth'});
+  tr.scrollLeft=(start||0)*tr.clientWidth;upd();
+  tr.addEventListener('scroll',()=>{clearTimeout(tr._t);tr._t=setTimeout(upd,60)});
+  v.querySelector('.prev').onclick=()=>go(cur()-1);v.querySelector('.next').onclick=()=>go(cur()+1);
+  v.querySelector('.vclose').onclick=()=>v.remove();
+  /* mouse drag for PC */
+  let x0=null;tr.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')x0=e.clientX});
+  tr.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0;x0=null;if(Math.abs(dx)>40)go(cur()+(dx<0?1:-1))});
 }
 function hiddenGate(){
   if(hiddenOpen){hiddenAlbum();return}
@@ -813,7 +890,7 @@ function hiddenGate(){
 }
 function hiddenAlbum(){
   const items=[{img:'img/hb2.jpg'},{img:'img/hb1.jpg'},{img:'img/hb3.jpg'}];
-  const html='<div class="pgrid">'+items.map((it,i)=>`<button data-i="${i}">${it.img?`<img src="${it.img}" alt="">`:PH(it.ph,it.h)}</button>`).join('')+'</div><div class="fpbox" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:22px 16px;color:var(--sub);font-size:13px;text-align:center;cursor:pointer"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#ff3b30" stroke-width="1.8" stroke-linecap="round"><path d="M9 13a8 8 0 0 1 16 0v3"/><path d="M13 14a4 4 0 0 1 8 0v6c0 3-1 5-3 7"/><path d="M17 15v6c0 2-.6 4-2 6"/><path d="M5 20c.6-2 .9-4 1-7"/><path d="M28 18c0 3-.7 6-2 8"/><path d="M9 25c1-1.5 1.6-3.5 1.7-6"/></svg><b style="color:var(--ink);font-size:14px">원본을 보려면 지문 인식이 필요합니다</b><span>Touch ID 등록된 지문과 일치하지 않습니다</span></div>';
+  const html='<div class="pgrid">'+items.map((it,i)=>`<button data-i="${i}">${it.img?`<img src="${it.img}" alt="">`:PH(it.ph,it.h)}</button>`).join('')+'</div><div class="fpbox" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:22px 16px;color:var(--sub);font-size:13px;text-align:center;cursor:pointer"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#ff3b30" stroke-width="1.8" stroke-linecap="round"><path d="M9 13a8 8 0 0 1 16 0v3"/><path d="M13 14a4 4 0 0 1 8 0v6c0 3-1 5-3 7"/><path d="M17 15v6c0 2-.6 4-2 6"/><path d="M5 20c.6-2 .9-4 1-7"/><path d="M28 18c0 3-.7 6-2 8"/><path d="M9 25c1-1.5 1.6-3.5 1.7-6"/></svg><b style="color:var(--ink);font-size:14px">원본을 보려면 지문 인식이 필요합니다</b></div>';
   openWin('가려진 항목',html,'앨범');
   $('#winBody').onclick=e=>{if(e.target.closest('[data-i]')||e.target.closest('.fpbox'))fpSheet()};
 }
@@ -846,7 +923,7 @@ const NOTES=[
 5. <s>그 방은 들어가면 안 돼요.</s> 이제 들어가도 됨.
 
 권유 아니고 명령.`},
- {id:'like',t:'선생님이 좋아하는 것',d:'11월 10일',pv:'반숙 (완전 원형), 바나나우유, 삼각김밥',body:`· 계란: 바삭하게. 가장자리 갈색 될 때까지.
+ {id:'like',t:'선생님이 좋아하는 것',d:'11월 10일',pv:'바삭한 계란, 바나나우유, 삼각김밥',body:`· 계란: 바삭하게. 가장자리 갈색 될 때까지.
   노른자 완전히 익히기. (나는 반숙 좋아하는데)
 · 바나나우유 + 삼각김밥 (17살 때 책상 밑으로 넘겨줬던 거)
 · 마라탕 (내가 좋아하는 줄 알고 시키자고 함)
@@ -949,11 +1026,11 @@ function locApp(){
      <div class="pin t" style="left:${tx}%;top:${ty}%"><span class="dot"></span><span>선생님 팔찌</span></div></div>
    <div class="locsheet"><h3>선생님 팔찌 (GPS)</h3><div class="dist">이 폰과의 거리 ${dist}km · 이동 중 · 방금 업데이트</div>
    <ul class="hist">
-     <li class="warn"><b>00:05</b><span>설정 구역 이탈 · 로데오거리 방향으로 이동 중</span></li>
-     <li><b>23:51</b><span>해인 집 도착 → 3분 뒤 다시 출발</span></li>
-     <li><b>21:10</b><span>해인 집 (삼성동)</span></li>
-     <li class="warn"><b>18:31</b><span>백동경 집 · 2시간 39분 체류</span></li>
-     <li><b>17:58</b><span>한국대학교 건축관</span></li>
+     <li class="warn"><b>오전 12:05</b><span>설정 구역 이탈 · 로데오거리 방향으로 이동 중</span></li>
+     <li><b>오후 11:51</b><span>해인 집 도착 → 3분 뒤 다시 출발</span></li>
+     <li><b>오후 9:10</b><span>해인 집 (삼성동)</span></li>
+     <li class="warn"><b>오후 6:31</b><span>백동경 집 · 2시간 39분 체류</span></li>
+     <li><b>오후 5:58</b><span>한국대학교 건축관</span></li>
      <li><b>11.10</b><span>빌리지 타운 · 백동경 차량으로 이동 · 3시간 체류</span></li>
    </ul></div>`;
   openWin('팔찌 찾기',html);find('loc');
@@ -1032,7 +1109,7 @@ function postView(i){
 
 /* music */
 function musicApp(){
-  openWin('음악',`<ul class="list">${[['set you free','최근 재생 · 47회'],['잘 자요, 선생님 (데모)','보관함'],['너를 묶어 둘 수 있다면','보관함']].map(([a,b])=>`<li><div class="row"><span class="av" style="background:#fb375b">♪</span><span class="mid"><span class="nm">${a}</span><div class="pv">${b}</div></span></div></li>`).join('')}</ul><p style="padding:14px 16px;color:var(--sub);font-size:13px">음원 자리 · OST가 있으면 여기에 연결할 수 있어요.</p>`);
+  openWin('음악',`<ul class="list">${[['set you free','최근 재생 · 47회'],['잘 자요, 선생님 (데모)','보관함'],['너를 묶어 둘 수 있다면','보관함']].map(([a,b])=>`<li><div class="row"><span class="av" style="background:#fb375b">♪</span><span class="mid"><span class="nm">${a}</span><div class="pv">${b}</div></span></div></li>`).join('')}</ul>`);
 }
 
 /* ---------- calls ---------- */
@@ -1059,10 +1136,10 @@ function ring(key){
   $('#call').innerHTML=`<div class="avc">${avIn(p)}</div><div class="who-c">${esc(p.name)}</div><div class="sub-c">${key==='final'?'다시 걸려 온 전화':'휴대전화'}</div>
     <div class="caps" id="caps"></div>
     <div class="cbtns"><label><button class="c-dec" id="cDec" aria-label="거절">✕</button>거절</label><label><button class="c-acc ring" id="cAcc" aria-label="받기">✆</button>받기</label></div>`;
-  $('#call').classList.add('show');
+  $('#call').classList.add('show');sfx('ring',{loop:true,vol:.6});
   const rep=setInterval(()=>{if(curCall===key&&$('#cAcc'))buzz();else clearInterval(rep)},2600);
-  $('#cAcc').onclick=()=>{clearInterval(rep);answer(key)};
-  $('#cDec').onclick=()=>{clearInterval(rep);decline(key)};
+  $('#cAcc').onclick=()=>{clearInterval(rep);sfxStop('ring');answer(key)};
+  $('#cDec').onclick=()=>{clearInterval(rep);sfxStop('ring');decline(key)};
 }
 function decline(key){
   endCall();
@@ -1111,19 +1188,20 @@ function dialOut(from,audio){
   if(inCall)return;
   if(!HEARD.has(audio)){inCall=true;curCall='out';const p=P[from];
     $('#call').innerHTML=`<div class="avc">${avIn(p)}</div><div class="who-c">${esc(p.name)}</div><div class="sub-c">연결 중…</div><div class="caps" id="caps"></div><div class="cbtns"><label><button class="c-dec" id="cEnd" aria-label="통화 종료">✕</button>종료</label></div>`;
-    $('#call').classList.add('show');$('#cEnd').onclick=()=>endCall();
+    $('#call').classList.add('show');$('#cEnd').onclick=()=>endCall();sfx('dial',{vol:.4});later(()=>{if(curCall==='out')sfx('dial',{vol:.4})},1700);
     later(()=>{if(curCall==='out')$('#call .sub-c').textContent='상대방이 전화를 받지 않습니다'},2600);
     later(()=>{if(curCall==='out')endCall()},4600);return}inCall=true;curCall='out';const p=P[from];
   $('#call').innerHTML=`<div class="avc">${avIn(p)}</div><div class="who-c">${esc(p.name)}</div><div class="sub-c">연결 중…</div><div class="caps" id="caps"></div><div class="cbtns"><label><button class="c-dec" id="cEnd" aria-label="통화 종료">✕</button>종료</label></div>`;
-  $('#call').classList.add('show');$('#cEnd').onclick=()=>endCall();
+  $('#call').classList.add('show');$('#cEnd').onclick=()=>endCall();sfx('dial',{vol:.4});
   const au=new Audio(audio);au.preload='auto';
   later(()=>{if(curCall!=='out')return;secs=0;clearInterval(secT);
     secT=setInterval(()=>{secs++;const s=$('#call .sub-c');if(s)s.textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0')},1000);
-    $('#call .sub-c').textContent='00:00';playCall({audio},()=>later(()=>{if(curCall==='out')endCall()},700))},1600);
+    sfxStop('dial');$('#call .sub-c').textContent='00:00';playCall({audio},()=>later(()=>{if(curCall==='out')endCall()},700))},1600);
 }
-function endCall(){hush();stopAudio();inCall=false;curCall=null;clearInterval(secT);$('#call').classList.remove('show')}
+function endCall(){sfxStop('ring');sfxStop('dial');if(inCall)sfx('hangup',{vol:.45});hush();stopAudio();inCall=false;curCall=null;clearInterval(secT);$('#call').classList.remove('show')}
 function maybeFinal(){if(finalFired||found.size<TOTAL)return;if(inCall){later(maybeFinal,5000);return}
-  finalFired=true;setBattery(3);banner('loc','선생님 팔찌가 이 폰 근처에 도착했습니다.');later(()=>ring('final'),4200)}
+  finalFired=true;setBattery(3);$('#prog').hidden=true;const d=$('#done');d.classList.add('show');buzz();sfx('complete',{vol:.6});
+  later(()=>{d.classList.remove('show');banner('loc','선생님 팔찌가 이 폰 근처에 도착했습니다.');later(()=>ring('final'),2200)},2600)}
 /* launch switch: KST open time decides the ending button */
 const OPEN_AT=new Date('2026-10-31T13:00:00+09:00').getTime();
 // 에어브릿지 트래킹 링크 (앱 있으면 앱, 없으면 스토어 / PC는 웹)
@@ -1146,14 +1224,15 @@ function fpSheet(){
 function playFlip(id){const f=$('#'+id);f.classList.remove('go');void f.offsetWidth;clearTimeout(f._t);f._t=setTimeout(()=>f.classList.add('go'),2000)}
 function showST(){setCTA();$('#stapp').classList.add('show');playFlip('flip2')}
 function shutdown(){setCTA();
-  later(()=>{hush();stopAudio();inCall=false;$('#call').classList.remove('show');
+  later(()=>{hush();stopAudio();inCall=false;$('#call').classList.remove('show');sfx('powerdown',{vol:.6});
     later(()=>{$('#endScore').textContent=`찾은 비밀 ${found.size}/${TOTAL}`+(found.size<TOTAL?' · 다 찾지 못한 비밀이 남아 있어요':' · 모든 비밀을 찾았어요');$('#end').classList.add('show');playFlip('flip1')},1400)},500);
 }
 
 /* ---------- wiring ---------- */
 $('#screen').addEventListener('click',e=>{const a=e.target.closest('[data-app]');if(a)openApp(a.dataset.app)});
 $('#pad').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(b)press(b.dataset.k)});
-$('#toPass').onclick=()=>{$('#pass').hidden=false;$('#hint').textContent=''};
+let unlocked=false;function doUnlock(){if(unlocked)return;unlocked=true;unlock()}
+$('#toPass').onclick=doUnlock;
 document.addEventListener('keydown',e=>{if(!$('#pass').hidden&&/^[0-9]$/.test(e.key))press(e.key);if(!$('#pass').hidden&&e.key==='Backspace')press('취소')});
 const _pickOld=()=>{
   try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}
@@ -1161,13 +1240,19 @@ const _pickOld=()=>{
   setTimeout(()=>{$('#off').classList.add('gone');buzz()},700);
 };
 $('#again').onclick=()=>location.reload();
+$('#startBtn').onclick=()=>{try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}
+  try{const a=new Audio('audio/taeseok_call1.mp3');a.muted=true;a.play().then(()=>a.pause()).catch(()=>{})}catch(e){}
+  sfxInit();sfx('buzz',{vol:.7});later(()=>sfx('ding',{vol:.5}),1300);
+  $('#intro2').classList.add('gone');buzz()};
+/* best effort: some browsers allow sound on load; others block it until the first tap */
+setTimeout(()=>{try{const a=new Audio('audio/sfx_ding.mp3');a.volume=.5;const p=a.play();if(p)p.catch(()=>{})}catch(e){}},500);
 $('#stClose').onclick=()=>$('#stapp').classList.remove('show');
 document.addEventListener('pointerdown',()=>{try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}},{once:true});
 
 document.addEventListener('gesturestart',e=>e.preventDefault());document.addEventListener('dblclick',e=>e.preventDefault(),{passive:false});
 drawPad();drawHome();drawLock();setBattery(14);tick();$('#wCount').textContent='0/'+TOTAL;
 $('#flash').onclick=()=>toast('손전등');$('#lcam').onclick=()=>toast('남의 폰으로 사진 찍으면 안 돼요');
-(()=>{let y0=null;const L=$('#lock');L.addEventListener('pointerdown',e=>{y0=e.clientY});L.addEventListener('pointerup',e=>{if(y0!==null&&y0-e.clientY>60){$('#pass').hidden=false;$('#hint').textContent=''}y0=null})})();
+(()=>{let y0=null;const L=$('#lock');L.addEventListener('pointerdown',e=>{y0=e.clientY});L.addEventListener('pointerup',e=>{if(y0!==null&&y0-e.clientY>50)doUnlock();y0=null})})();
 })();
 </script>
 
