@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5X5234YB2"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-P5X5234YB2');</script>
+<script>(function(){try{var q=new URLSearchParams(location.search),v=q.get('s');if(!v||q.get('utm_source'))return;var M={ig:'instagram',x:'x',tt:'tiktok',yt:'youtube',kk:'kakao',th:'threads',fb:'facebook',dc:'discord'},p=v.split('_'),src=M[p[0]]||p[0];q.delete('s');q.set('utm_source',src);q.set('utm_medium',src==='share'?'referral':'social');q.set('utm_campaign','haein_phone');if(p[1])q.set('utm_content',p.slice(1).join('_'));history.replaceState(null,'',location.pathname+'?'+q.toString()+location.hash)}catch(e){}})();window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-P5X5234YB2');</script>
 <title>공해인의 휴대폰</title>
 <meta name="description" content="누군가 떨어뜨린 휴대폰. 숨겨진 비밀 9개를 찾아보세요 | 《몸으로 갚아요, 선생님》 10.31 쇼타임 공개">
 <meta property="og:type" content="website">
@@ -1295,7 +1295,7 @@ $('#startBtn').onclick=()=>{ga('game_start');try{const u=new SpeechSynthesisUtte
 /* best effort: some browsers allow sound on load; others block it until the first tap */
 setTimeout(()=>{try{const a=new Audio('audio/sfx_ding.mp3');a.volume=.5;const p=a.play();if(p)p.catch(()=>{})}catch(e){}},500);
 /* share: native share sheet on phones, copy link elsewhere */
-function shareLink(btn){ga('share_click',{screen:btn.closest('.end')?.id||''});const url=location.href.split('#')[0];const data={title:'공해인의 휴대폰',text:'누군가 떨어뜨린 휴대폰. 숨겨진 비밀 9개를 찾아보세요 | 《몸으로 갚아요, 선생님》',url};
+function shareLink(btn){ga('share_click',{screen:btn.closest('.end')?.id||''});const url=location.origin+location.pathname+'?s=share';const data={title:'공해인의 휴대폰',text:'누군가 떨어뜨린 휴대폰. 숨겨진 비밀 9개를 찾아보세요 | 《몸으로 갚아요, 선생님》',url};
   const done=t=>{const o=btn.textContent;btn.textContent=t;setTimeout(()=>btn.textContent=o,1800)};
   if(navigator.share){navigator.share(data).catch(()=>{});return}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>done('링크를 복사했어요')).catch(()=>prompt2(url,done));return}
