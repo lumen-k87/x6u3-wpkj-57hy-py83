@@ -440,7 +440,7 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
 .end .stclose{position:absolute;top:54px;left:16px;background:none;border:0;color:#fff;font:400 16px var(--f-ui);cursor:pointer;text-decoration:none!important}
 .end .poster{width:150px;aspect-ratio:3/4;border-radius:10px;overflow:hidden;max-width:100%}
 .end .poster img{width:100%;height:100%;object-fit:cover}
-.end a.cta,.end .sharebtn{box-sizing:border-box;width:min(250px,78vw);height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto;padding:0 20px;border-radius:999px;font:700 15px var(--f-ui);letter-spacing:-.01em;text-decoration:none;cursor:pointer;-webkit-appearance:none;appearance:none}
+.end a.cta,.end .sharebtn{box-sizing:border-box;width:min(280px,82vw);height:48px;display:flex;align-items:center;justify-content:center;margin:0 auto;padding:0 20px;border-radius:999px;font:700 15px var(--f-ui);letter-spacing:-.01em;text-decoration:none;cursor:pointer;-webkit-appearance:none;appearance:none}
 .end a.cta{background:var(--neon);color:#fff;border:1.5px solid var(--neon)}
 .end .sharebtn{background:none;border:1.5px solid rgba(255,255,255,.55);color:#fff;font-weight:600}
 .end button{background:none;border:0;color:#b9bdc8;text-decoration:underline;font:400 13px var(--f-ui);cursor:pointer}
@@ -1246,10 +1246,12 @@ const OPEN_AT=new Date('2026-10-31T13:00:00+09:00').getTime();
 // 에어브릿지 트래킹 링크 (앱 있으면 앱, 없으면 스토어 / PC는 웹)
 const LINK_PRE='https://abr.ge/aonfapi';   // 오픈 전: 앱 홈
 const LINK_POST='https://abr.ge/qbfy5k9';  // 오픈 후: 작품 상세(419)
+const LINK_REWARD='https://abr.ge/rlmmhuk'; // 오픈 전 + 9/9 엔딩: 팝콘 100개 보상
 const isOpen=()=>Date.now()>=OPEN_AT;
 function setCTA(){const o=isOpen();
   document.querySelectorAll('.cta').forEach(a=>{a.href=o?LINK_POST:LINK_PRE;a.textContent=o?'지금 바로 쇼타임에서 보기 !':'쇼타임에서 오픈 기다리기 !'});
-  const ct=o?'《몸으로 갚아요, 선생님》<br>쇼타임에서 지금 바로 만나보세요':'《몸으로 갚아요, 선생님》<br>10월 31일 13시, 쇼타임에서 전 회차 공개';document.querySelectorAll('.ctaText').forEach(e=>e.innerHTML=ct);}
+  const ct=o?'《몸으로 갚아요, 선생님》<br>쇼타임에서 지금 바로 만나보세요':'《몸으로 갚아요, 선생님》<br>10월 31일 13시, 쇼타임에서 전 회차 공개';document.querySelectorAll('.ctaText').forEach(e=>e.innerHTML=ct);setEndCTA();}
+function setEndCTA(){if(isOpen()||found.size<TOTAL)return;const a=$('#end .cta'),t=$('#end .ctaText');if(a){a.href=LINK_REWARD;a.textContent='쇼타임으로 무료 팝콘 받으러 가기 !'}if(t)t.innerHTML='《몸으로 갚아요, 선생님》 10.31 13시 전 회차 공개<br>오픈 전, 쇼타임에서 쓸 수 있는 팝콘 100개를 드려요 🍿'}
 function fpSheet(){
   const o=isOpen(),href=o?LINK_POST:LINK_PRE;
   const d=document.createElement('div');d.className='fpsheet';
@@ -1264,7 +1266,7 @@ function playFlip(id){const f=$('#'+id);f.classList.remove('go');void f.offsetWi
 function showST(){setCTA();$('#stapp').classList.add('show');playFlip('flip2')}
 function shutdown(){setCTA();
   later(()=>{hush();stopAudio();inCall=false;$('#call').classList.remove('show');sfx('powerdown',{vol:.6});
-    later(()=>{$('#endScore').textContent=`찾은 비밀 ${found.size}/${TOTAL}`+(found.size<TOTAL?' · 다 찾지 못한 비밀이 남아 있어요':' · 모든 비밀을 찾았어요');$('#end').classList.add('show');playFlip('flip1')},1400)},500);
+    later(()=>{$('#endScore').textContent=`찾은 비밀 ${found.size}/${TOTAL}`+(found.size<TOTAL?' · 다 찾지 못한 비밀이 남아 있어요':' · 모든 비밀을 찾았어요');setCTA();$('#end').classList.add('show');playFlip('flip1')},1400)},500);
 }
 
 /* ---------- wiring ---------- */
