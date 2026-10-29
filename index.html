@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="robots" content="noindex,nofollow">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P5X5234YB2"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-P5X5234YB2');</script>
 <title>공해인의 휴대폰</title>
 <meta name="description" content="누군가 떨어뜨린 휴대폰. 숨겨진 비밀 9개를 찾아보세요 | 《몸으로 갚아요, 선생님》 10.31 쇼타임 공개">
 <meta property="og:type" content="website">
@@ -558,6 +561,8 @@ html,body,button,a,input,.screen,.screen *{touch-action:manipulation;-webkit-tap
 
 <script>
 (()=>{
+/* GA4 events (gtag is injected only in the GitHub build) */
+const ga=(n,p)=>{try{if(window.gtag)window.gtag('event',n,p||{})}catch(e){}};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
@@ -694,7 +699,7 @@ function sfx(n,o){o=o||{};const vol=o.vol==null?.55:o.vol;
 function sfxStop(n){const s=PLAY[n];if(s){try{s.stop()}catch(e){}PLAY[n]=null}
   const a=SFX[n];if(a){try{a.pause();a.currentTime=0;a.loop=false}catch(e){}}}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&AC&&AC.state!=='running')try{AC.resume()}catch(e){}});
-function find(k){if(found.has(k))return;found.add(k);lastFind=Date.now();if(k!=='unlock')sfx('found',{vol:.5});
+function find(k){if(found.has(k))return;found.add(k);ga('secret_found',{secret:k,found_count:found.size});lastFind=Date.now();if(k!=='unlock')sfx('found',{vol:.5});
   $('#wCount').textContent=found.size+'/'+TOTAL;$('#wBar').style.width=(found.size/TOTAL*100)+'%';
   const f=$('#found');f.textContent='비밀 발견 · '+SECRETS[k]+' ('+found.size+'/'+TOTAL+')';f.classList.add('show');clearTimeout(f._t);f._t=setTimeout(()=>f.classList.remove('show'),3800);updProg(true);
   if(found.size>=TOTAL&&!finalFired){later(()=>maybeFinal(),1800)}
@@ -1239,7 +1244,7 @@ function dialOut(from,audio){
 function endCall(){sfxStop('ring');sfxStop('dial');if(inCall)sfx('hangup',{vol:.45});hush();stopAudio();inCall=false;curCall=null;clearInterval(secT);$('#call').classList.remove('show')}
 function audioBusy(){return inCall||!!(callAudio&&callAudio._busy&&!callAudio.ended)}
 function maybeFinal(){if(finalFired||found.size<TOTAL)return;if(audioBusy()&&(maybeFinal._w||0)<40){maybeFinal._w=(maybeFinal._w||0)+1;later(maybeFinal,700);return}if(maybeFinal._w){maybeFinal._w=0;later(maybeFinal,1400);return}
-  finalFired=true;setBattery(3);$('#prog').hidden=true;const d=$('#done');d.classList.add('show');buzz();sfx('complete',{vol:.6});
+  finalFired=true;ga('all_secrets_found');setBattery(3);$('#prog').hidden=true;const d=$('#done');d.classList.add('show');buzz();sfx('complete',{vol:.6});
   later(()=>{d.classList.remove('show');banner('loc','선생님 팔찌가 이 폰 근처에 도착했습니다.');later(()=>ring('final'),2200)},2600)}
 /* launch switch: KST open time decides the ending button */
 const OPEN_AT=new Date('2026-10-31T13:00:00+09:00').getTime();
@@ -1266,7 +1271,7 @@ function playFlip(id){const f=$('#'+id);f.classList.remove('go');void f.offsetWi
 function showST(){setCTA();$('#stapp').classList.add('show');playFlip('flip2')}
 function shutdown(){setCTA();
   later(()=>{hush();stopAudio();inCall=false;$('#call').classList.remove('show');sfx('powerdown',{vol:.6});
-    later(()=>{$('#endScore').textContent=`찾은 비밀 ${found.size}/${TOTAL}`+(found.size<TOTAL?' · 다 찾지 못한 비밀이 남아 있어요':' · 모든 비밀을 찾았어요');setCTA();$('#end').classList.add('show');playFlip('flip1')},1400)},500);
+    later(()=>{$('#endScore').textContent=`찾은 비밀 ${found.size}/${TOTAL}`+(found.size<TOTAL?' · 다 찾지 못한 비밀이 남아 있어요':' · 모든 비밀을 찾았어요');setCTA();ga('ending_view',{found_count:found.size});$('#end').classList.add('show');playFlip('flip1')},1400)},500);
 }
 
 /* ---------- wiring ---------- */
@@ -1283,20 +1288,21 @@ const _pickOld=()=>{
 $('#again').onclick=()=>location.reload();
 /* preload photos so they open instantly */
 const PRE=[];(()=>{const L=['th/r1','th/r2','th/r3','th/r4','th/r5','th/r6','th/r7','th/r8','th/r9','th/feed_first','th/post8','th/post9','th/post10','th/post11','th/post12','th/post13','th/post14','th/post15','th/post16','th/s1','th/s2','th/s3','th/s4','th/s5','th/s6','th/m1','th/m2','th/hb1','th/hb2','th/hb3','av_taeseok','av_beom','av_haein','r1','r2','r3','r4','r5','r6','r7','r8','r9','feed_first','post8','post9','post10','post11','post12','post13','post14','post15','post16','s1','s2','s3','s4','s5','s6','m1','m2','hb1','hb2','hb3','poster','still_candle_crop','shortime_icon'];let i=0;const next=()=>{if(i>=L.length)return;const im=new Image();im.decoding='async';im.src='img/'+L[i++]+'.jpg';PRE.push(im);const go=()=>{(im.decode?im.decode():Promise.resolve()).catch(()=>{}).finally(()=>setTimeout(next,30))};im.complete?go():(im.onload=go,im.onerror=()=>setTimeout(next,30))};for(let k=0;k<4;k++)next()})();
-$('#startBtn').onclick=()=>{try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}
+$('#startBtn').onclick=()=>{ga('game_start');try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}
   try{const a=new Audio('audio/taeseok_call1.mp3');a.muted=true;a.play().then(()=>a.pause()).catch(()=>{})}catch(e){}
   sfxInit();sfx('buzz',{vol:.7});later(()=>sfx('ding',{vol:.5}),1300);
   $('#intro2').classList.add('gone');buzz()};
 /* best effort: some browsers allow sound on load; others block it until the first tap */
 setTimeout(()=>{try{const a=new Audio('audio/sfx_ding.mp3');a.volume=.5;const p=a.play();if(p)p.catch(()=>{})}catch(e){}},500);
 /* share: native share sheet on phones, copy link elsewhere */
-function shareLink(btn){const url=location.href.split('#')[0];const data={title:'공해인의 휴대폰',text:'누군가 떨어뜨린 휴대폰. 숨겨진 비밀 9개를 찾아보세요 | 《몸으로 갚아요, 선생님》',url};
+function shareLink(btn){ga('share_click',{screen:btn.closest('.end')?.id||''});const url=location.href.split('#')[0];const data={title:'공해인의 휴대폰',text:'누군가 떨어뜨린 휴대폰. 숨겨진 비밀 9개를 찾아보세요 | 《몸으로 갚아요, 선생님》',url};
   const done=t=>{const o=btn.textContent;btn.textContent=t;setTimeout(()=>btn.textContent=o,1800)};
   if(navigator.share){navigator.share(data).catch(()=>{});return}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>done('링크를 복사했어요')).catch(()=>prompt2(url,done));return}
   prompt2(url,done)}
 function prompt2(url,done){try{const t=document.createElement('textarea');t.value=url;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();done('링크를 복사했어요')}catch(e){done('주소창의 링크를 복사해 주세요')}}
 document.querySelectorAll('.sharebtn').forEach(b=>b.onclick=()=>shareLink(b));
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href*="abr.ge"]');if(a)ga('cta_click',{screen:a.closest('.end')?.id||'fp_sheet',cta_type:a.href.includes('rlmmhuk')?'popcorn_reward':isOpen()?'post_open':'pre_open',link_url:a.href})},true);
 $('#stClose').onclick=()=>$('#stapp').classList.remove('show');
 document.addEventListener('pointerdown',()=>{try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}catch(e){}},{once:true});
 
